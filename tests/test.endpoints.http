@@ -1,0 +1,157 @@
+### ============================================
+### Tests de Endpoints - Fase 1: CRUD Básico
+### ============================================
+### Nota: Estos tests NO requieren autenticación
+### La autenticación se implementará en la Fase 2
+### ============================================
+
+@baseUrl = http://localhost:3000/api/v1
+
+### ============================================
+### Health Check
+### ============================================
+
+### GET Health Check
+GET {{baseUrl}}/../health
+
+### ============================================
+### Productos - CRUD Básico
+### ============================================
+
+### POST - Crear producto
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "Laptop HP Pavilion",
+  "stockAmount": 10
+}
+
+### POST - Crear producto con fecha de ingreso
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "Mouse Logitech",
+  "stockAmount": 50,
+  "fechaIngreso": "2024-01-15"
+}
+
+### POST - Crear producto con stock 0
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "Teclado Mecánico",
+  "stockAmount": 0
+}
+
+### POST - Error: Producto vacío
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "",
+  "stockAmount": 5
+}
+
+### POST - Error: Stock negativo
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "Monitor Dell",
+  "stockAmount": -5
+}
+
+### POST - Error: Stock no entero
+POST {{baseUrl}}/productos
+Content-Type: application/json
+
+{
+  "producto": "Monitor Dell",
+  "stockAmount": 5.5
+}
+
+### GET - Listar todos los productos
+GET {{baseUrl}}/productos
+
+### GET - Obtener producto por ID (reemplazar :id con un ID válido)
+GET {{baseUrl}}/productos/:id
+
+### GET - Error: Producto no encontrado
+GET {{baseUrl}}/productos/999999999999999999999999
+
+### PUT - Actualizar producto completo (reemplazar :id con un ID válido)
+PUT {{baseUrl}}/productos/:id
+Content-Type: application/json
+
+{
+  "producto": "Laptop HP Pavilion Actualizado",
+  "stockAmount": 15,
+  "fechaIngreso": "2024-02-01"
+}
+
+### PUT - Actualizar producto parcial (reemplazar :id con un ID válido)
+PUT {{baseUrl}}/productos/:id
+Content-Type: application/json
+
+{
+  "stockAmount": 20
+}
+
+### PUT - Error: Producto vacío (reemplazar :id con un ID válido)
+PUT {{baseUrl}}/productos/:id
+Content-Type: application/json
+
+{
+  "producto": ""
+}
+
+### PUT - Error: Stock negativo (reemplazar :id con un ID válido)
+PUT {{baseUrl}}/productos/:id
+Content-Type: application/json
+
+{
+  "stockAmount": -10
+}
+
+### DELETE - Eliminar producto (reemplazar :id con un ID válido)
+DELETE {{baseUrl}}/productos/:id
+
+### DELETE - Error: Producto no encontrado
+DELETE {{baseUrl}}/productos/999999999999999999999999
+
+### ============================================
+### Tests de Rutas No Encontradas
+### ============================================
+
+### GET - Ruta no encontrada
+GET {{baseUrl}}/ruta-inexistente
+
+### POST - Ruta no encontrada
+POST {{baseUrl}}/productos/ruta-inexistente
+Content-Type: application/json
+
+{
+  "producto": "Test"
+}
+
+### ============================================
+### Notas para la Fase 2 (Autenticación)
+### ============================================
+###
+### En la Fase 2 se implementará:
+### 1. Sistema de usuarios con registro y login
+### 2. Middleware de autenticación (x-api-key y JWT)
+### 3. Protección de rutas PUT y DELETE
+###
+### Para generar un token JWT de prueba:
+### 1. POST /api/v1/auth/register - Registrar usuario
+### 2. POST /api/v1/auth/login - Iniciar sesión y obtener token
+### 3. Usar el token en header: Authorization: Bearer <token>
+###
+### Para usar x-api-key:
+### 1. Configurar API_KEY en .env
+### 2. Usar header: x-api-key: <tu-api-key>
+###

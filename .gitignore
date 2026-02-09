@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Plan de implementación (no subir al repo)
+PLAN_IMPLEMENTACION.md
+
+# Database files (JSON persistence)
+database/database.json
+
+# Generated files
+database/albums_15.csv
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
